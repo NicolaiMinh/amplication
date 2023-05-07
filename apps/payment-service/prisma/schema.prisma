@@ -17,3 +17,12 @@ model User {
   updatedAt DateTime @updatedAt
   username  String   @unique
 }
+
+model Payment {
+  cardNo             String
+  cardPlaceholder    String?
+  createdAt          DateTime @default(now())
+  id                 String   @id @default(cuid())
+  transactionDeposit Float?
+  updatedAt          DateTime @updatedAt
+}
