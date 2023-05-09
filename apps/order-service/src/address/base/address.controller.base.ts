@@ -23,6 +23,7 @@ import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateReq
 import { Public } from "../../decorators/public.decorator";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AddressCreateInput } from "./AddressCreateInput";
+import { AddressWhereInput } from "./AddressWhereInput";
 import { AddressWhereUniqueInput } from "./AddressWhereUniqueInput";
 import { AddressFindManyArgs } from "./AddressFindManyArgs";
 import { AddressUpdateInput } from "./AddressUpdateInput";
@@ -30,27 +31,13 @@ import { Address } from "./Address";
 import { CustomerFindManyArgs } from "../../customer/base/CustomerFindManyArgs";
 import { Customer } from "../../customer/base/Customer";
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
-// import {KafkaService} from "../../kafka/kafka.service";
-import {MessageBrokerTopics} from "../../kafka/topics";
-import {Inject, Logger} from "@nestjs/common";
-import {ApplicationLogger} from "../../../../libs/src/util/logging";
-import {KafkaProducerService} from "../../../../libs/src/util/kafka";
-import {Env} from "../../env";
-import {ConfigService} from "@nestjs/config";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class AddressControllerBase {
-
-  // protected readonly logger = new Logger(AddressControllerBase.name);
-
   constructor(
     protected readonly service: AddressService,
-    protected readonly rolesBuilder: nestAccessControl.RolesBuilder,
-    protected readonly configService: ConfigService<Env, true>,
-    protected readonly producerService: KafkaProducerService,
-    @Inject(ApplicationLogger)
-    protected readonly logger: ApplicationLogger
+    protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()
@@ -63,8 +50,8 @@ export class AddressControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async create(@common.Body() data: AddressCreateInput): Promise<void> {
-    await this.service.create({
+  async create(@common.Body() data: AddressCreateInput): Promise<Address> {
+    return await this.service.create({
       data: data,
       select: {
         address_1: true,
@@ -77,32 +64,7 @@ export class AddressControllerBase {
         zip: true,
       },
     });
-    this.logger.info(" AddressCreateInput Writing build generation message to queue");
-
-    // await this.kafkaService.emitMessage(
-    //     MessageBrokerTopics.TopicSampleV1,
-    //     JSON.stringify({ ...data})
-    // );
-    //
-    // await this.kafkaService.emitMessage(
-    //     MessageBrokerTopics.TopicSampleV1,
-    //     {
-    //       key: null,
-    //       value: { address_1: data.address_1 },
-    //     }
-    // );
-    await this.producerService.emitMessage(
-        this.configService.get("topic.sample.v1"),
-        {
-          key: null,
-          value: { address_1: data.address_1 },
-        }
-    );
-    this.logger.info("AddressCreateInput Build generation message sent");
-    return;
   }
-
-
 
   @Public()
   @common.Get()

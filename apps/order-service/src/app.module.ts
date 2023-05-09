@@ -9,14 +9,14 @@ import { ProductModule } from "./product/product.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
+import { KafkaModule } from "./kafka/kafka.module";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { ServeStaticOptionsService } from "./serveStaticOptions.service";
 import { GraphQLModule } from "@nestjs/graphql";
+
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
-import {ApplicationLoggerModule} from "../../libs/src/util/logging";
-import {KafkaModule} from "../../libs/src/util/kafka";
 
 @Module({
   controllers: [],
@@ -31,16 +31,8 @@ import {KafkaModule} from "../../libs/src/util/kafka";
     HealthModule,
     PrismaModule,
     SecretsManagerModule,
-    KafkaModule,
     MorganModule,
     ConfigModule.forRoot({ isGlobal: true }),
-    // ConfigModule.forRoot({
-    //   isGlobal: true,
-    //   envFilePath: [".env.local", ".env"],
-    // }),
-    ApplicationLoggerModule.forRoot({
-      serviceName: "order-service",
-    }),
     ServeStaticModule.forRootAsync({
       useClass: ServeStaticOptionsService,
     }),
