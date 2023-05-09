@@ -3,10 +3,9 @@ import { PaymentModuleBase } from "./base/payment.module.base";
 import { PaymentService } from "./payment.service";
 import { PaymentController } from "./payment.controller";
 import { PaymentResolver } from "./payment.resolver";
-import {KafkaModule} from "../../../libs/src/util/kafka";
 
 @Module({
-  imports: [PaymentModuleBase, KafkaModule],
+  imports: [PaymentModuleBase],
   controllers: [PaymentController],
   providers: [PaymentService, PaymentResolver],
   exports: [PaymentService],
