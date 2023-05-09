@@ -27,13 +27,17 @@ import { PaymentWhereUniqueInput } from "./PaymentWhereUniqueInput";
 import { PaymentFindManyArgs } from "./PaymentFindManyArgs";
 import { PaymentUpdateInput } from "./PaymentUpdateInput";
 import { Payment } from "./Payment";
+import {ApplicationLogger} from "../../../../libs/src/util/logging";
+import {Inject} from "@nestjs/common";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class PaymentControllerBase {
   constructor(
     protected readonly service: PaymentService,
-    protected readonly rolesBuilder: nestAccessControl.RolesBuilder
+    protected readonly rolesBuilder: nestAccessControl.RolesBuilder,
+    @Inject(ApplicationLogger)
+    protected readonly logger: ApplicationLogger
   ) {}
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()

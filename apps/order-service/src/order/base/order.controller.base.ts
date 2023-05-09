@@ -27,13 +27,18 @@ import { OrderWhereUniqueInput } from "./OrderWhereUniqueInput";
 import { OrderFindManyArgs } from "./OrderFindManyArgs";
 import { OrderUpdateInput } from "./OrderUpdateInput";
 import { Order } from "./Order";
+import {Logger} from "@nestjs/common";
+// import {KafkaService} from "../../kafka/kafka.service";
+import {MessageBrokerTopics} from "../../kafka/topics";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class OrderControllerBase {
+  private readonly logger = new Logger(OrderControllerBase.name);
+
   constructor(
     protected readonly service: OrderService,
-    protected readonly rolesBuilder: nestAccessControl.RolesBuilder
+    protected readonly rolesBuilder: nestAccessControl.RolesBuilder,
   ) {}
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()
@@ -86,6 +91,15 @@ export class OrderControllerBase {
         updatedAt: true,
       },
     });
+
+    // this.logger.log("Writing build generation message to queue");
+    //
+    // await this.kafkaService.emitMessage(
+    //     MessageBrokerTopics.TopicSampleV1,
+    //     JSON.stringify({ ...data})
+    // );
+    // this.logger.log("Build generation message sent");
+
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

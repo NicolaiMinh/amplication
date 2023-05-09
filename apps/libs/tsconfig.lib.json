@@ -1,0 +1,33 @@
+//{
+//  "extends": "./tsconfig.json",
+//  "compilerOptions": {
+//    "outDir": "../../../dist/out-tsc",
+//    "declaration": true,
+//    "types": ["node"]
+//  },
+//  "include": ["**/*.ts"],
+//  "exclude": [
+//    "jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
+//}
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}
