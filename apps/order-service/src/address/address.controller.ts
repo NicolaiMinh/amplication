@@ -8,7 +8,6 @@ import {Ctx, EventPattern, KafkaContext, MessagePattern, Payload} from "@nestjs/
 import {MessageBrokerTopics} from "../kafka/topics";
 import {AddressCreateInput} from "./base/AddressCreateInput";
 import {Inject, Logger} from "@nestjs/common";
-import {AddressGenerationSuccess} from "./dto/AddressGenerationSuccess";
 import {plainToInstance} from "class-transformer";
 import {validateOrReject} from "class-validator";
 import {ApplicationLogger} from "../../../libs/src/util/logging";

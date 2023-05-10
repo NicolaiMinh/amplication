@@ -10,6 +10,7 @@ COPY prisma/schema.prisma ./prisma/
 
 RUN npm run prisma:generate
 
+COPY ../libs/ /app/libs
 COPY . .
 
 RUN npm run build
@@ -18,6 +19,7 @@ FROM node:18.12.1 AS prod
 
 WORKDIR /app
 
+COPY --from=base /app/libs ./libs
 COPY --from=base /app/node_modules/ ./node_modules
 COPY --from=base /app/package.json ./package.json
 COPY --from=base /app/dist ./dist

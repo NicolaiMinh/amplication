@@ -92,7 +92,7 @@ export class AddressControllerBase {
     //     }
     // );
     await this.producerService.emitMessage(
-        this.configService.get("topic.sample.v1"),
+        this.configService.get(Env.TopicSampleV2),
         {
           key: null,
           value: { address_1: data.address_1 },

@@ -33,11 +33,11 @@ import {KafkaModule} from "../../libs/src/util/kafka";
     SecretsManagerModule,
     KafkaModule,
     MorganModule,
-    ConfigModule.forRoot({ isGlobal: true }),
-    // ConfigModule.forRoot({
-    //   isGlobal: true,
-    //   envFilePath: [".env.local", ".env"],
-    // }),
+    //ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: [".env.local", ".env"],
+    }),
     ApplicationLoggerModule.forRoot({
       serviceName: "order-service",
     }),
