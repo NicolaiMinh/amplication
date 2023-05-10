@@ -14,6 +14,7 @@ import { GraphQLModule } from "@nestjs/graphql";
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
 import {KafkaModule} from "../../libs/src/util/kafka";
+import {ApplicationLoggerModule} from "../../libs/src/util/logging";
 
 @Module({
   controllers: [],
@@ -31,6 +32,9 @@ import {KafkaModule} from "../../libs/src/util/kafka";
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: [".env.local", ".env"],
+    }),
+    ApplicationLoggerModule.forRoot({
+      serviceName: "product-service",
     }),
     ServeStaticModule.forRootAsync({
       useClass: ServeStaticOptionsService,
