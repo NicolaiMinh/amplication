@@ -1,6 +1,7 @@
 {
   "name": "@order-service/server",
   "private": true,
+  "main": "src/main.ts",
   "scripts": {
     "start": "nest start",
     "start:watch": "nest start --watch",

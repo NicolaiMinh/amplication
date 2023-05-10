@@ -11,10 +11,10 @@ import {Inject, Logger} from "@nestjs/common";
 import {plainToInstance} from "class-transformer";
 import {validateOrReject} from "class-validator";
 import {ApplicationLogger} from "../../../libs/src/util/logging";
-import {KafkaProducerService} from "../../../libs/src/util/kafka";
 import {ConfigService} from "@nestjs/config";
 import {Env} from "../env";
 import {EnvironmentVariables} from "../../../libs/src";
+import {KafkaProducerService} from "@util/kafka";
 
 @swagger.ApiTags("addresses")
 @common.Controller("addresses")

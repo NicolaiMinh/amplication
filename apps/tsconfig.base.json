@@ -16,6 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@util/kafka": ["libs/src/util/kafka/index.ts"],
+      "@util/logging": ["libs/src/util/logging/index.ts"],
     }
   },
   "ts-node": {
