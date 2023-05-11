@@ -33,10 +33,10 @@ import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqu
 // import {KafkaService} from "../../kafka/kafka.service";
 import {MessageBrokerTopics} from "../../kafka/topics";
 import {Inject, Logger} from "@nestjs/common";
-import {ApplicationLogger} from "../../../../libs/src/util/logging";
-import {KafkaProducerService} from "../../../../libs/src/util/kafka";
 import {Env} from "../../env";
 import {ConfigService} from "@nestjs/config";
+import {KAFKA_CLIENT, KafkaProducerService} from "@app/kafka";
+import {ApplicationLogger} from "@app/logging";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -77,6 +77,7 @@ export class AddressControllerBase {
         zip: true,
       },
     });
+    console.log("AddressCreateInput Writing build generation message to queue");
     this.logger.info(" AddressCreateInput Writing build generation message to queue");
 
     // await this.kafkaService.emitMessage(

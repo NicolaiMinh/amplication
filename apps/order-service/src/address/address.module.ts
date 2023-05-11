@@ -3,8 +3,7 @@ import { AddressModuleBase } from "./base/address.module.base";
 import { AddressService } from "./address.service";
 import { AddressController } from "./address.controller";
 import { AddressResolver } from "./address.resolver";
-import {KafkaModule} from "../../../libs/src/util/kafka";
-// import {KafkaModule} from "../kafka/kafka.module";
+import {KafkaModule} from "@app/kafka";
 
 @Module({
   imports: [AddressModuleBase, KafkaModule],

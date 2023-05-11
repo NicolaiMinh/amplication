@@ -15,8 +15,8 @@ import { ServeStaticOptionsService } from "./serveStaticOptions.service";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
-import {ApplicationLoggerModule} from "../../libs/src/util/logging";
-import {KafkaModule} from "../../libs/src/util/kafka";
+import {KafkaModule} from "@app/kafka";
+import {ApplicationLoggerModule} from "@app/logging";
 
 @Module({
   controllers: [],

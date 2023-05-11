@@ -28,7 +28,8 @@ import { ProductFindManyArgs } from "./ProductFindManyArgs";
 import { ProductUpdateInput } from "./ProductUpdateInput";
 import { Product } from "./Product";
 import {Inject} from "@nestjs/common";
-import {ApplicationLogger} from "../../../../libs/src/util/logging";
+import {ApplicationLogger} from "@app/logging";
+import {KafkaProducerService} from "@app/kafka";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -36,8 +37,9 @@ export class ProductControllerBase {
   constructor(
     protected readonly service: ProductService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder,
-    @Inject(ApplicationLogger)
-    protected readonly logger: ApplicationLogger
+    protected readonly producerService: KafkaProducerService,
+    // @Inject(ApplicationLogger)
+    // protected readonly logger: ApplicationLogger
   ) {}
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()

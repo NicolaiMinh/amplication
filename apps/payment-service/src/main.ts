@@ -12,9 +12,9 @@ import {
   // @ts-ignore
   // eslint-disable-next-line
 } from "./swagger";
-import {ApplicationLogger} from "../../libs/src/util/logging";
-import {createNestjsKafkaConfig} from "../../libs/src/util/kafka";
 import {MicroserviceOptions} from "@nestjs/microservices";
+import {ApplicationLogger} from "@app/logging";
+import {createNestjsKafkaConfig} from "@app/kafka";
 
 const { PORT = 3001 } = process.env;
 

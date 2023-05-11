@@ -13,8 +13,8 @@ import {
   // eslint-disable-next-line
 } from "./swagger";
 import {MicroserviceOptions} from "@nestjs/microservices";
-import {createNestjsKafkaConfig} from "../../libs/src/util/kafka";
-import {ApplicationLogger} from "../../libs/src/util/logging";
+import {ApplicationLogger} from "@app/logging";
+import {createNestjsKafkaConfig} from "@app/kafka";
 
 const { PORT = 3000 } = process.env;
 
@@ -51,6 +51,8 @@ async function main() {
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new HttpExceptionFilter(httpAdapter));
 
+  // const configService: ConfigService = app.get<ConfigService>(ConfigService);
+  // const port = configService.get(Env.PORT);
   void app.listen(PORT);
 
   return app;

@@ -27,8 +27,8 @@ import { PaymentWhereUniqueInput } from "./PaymentWhereUniqueInput";
 import { PaymentFindManyArgs } from "./PaymentFindManyArgs";
 import { PaymentUpdateInput } from "./PaymentUpdateInput";
 import { Payment } from "./Payment";
-import {ApplicationLogger} from "../../../../libs/src/util/logging";
 import {Inject} from "@nestjs/common";
+import {ApplicationLogger} from "@app/logging";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)

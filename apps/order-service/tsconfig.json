@@ -1,20 +1,55 @@
+//{
+//  //"extends": "../../tsconfig.base.json",
+//  "extends": "../../tsconfig.json",
+//  "files": [],
+//  "include": [],
+//  "compilerOptions": {
+//    "experimentalDecorators": true,
+//    "resolveJsonModule": true,
+//    "paths": {
+//      "@app/custom-validators": ["src/validators"]
+//    }
+//  },
+//  "references": [
+//    {
+//      "path": "./tsconfig.app.json"
+//    }
+//  ]
+//}
+
 {
-  "extends": "../tsconfig.base.json",
-  "files": [],
-  "include": [],
   "compilerOptions": {
+    "baseUrl": "./",
+    "module": "commonjs",
+    "declaration": false,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "resolveJsonModule": true
-  },
-  "paths": {
-    "@app/libs-util": ["../../../libs/src/util"]
-  },
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
+    "target": "es2017",
+    "lib": ["ES2020"],
+    "sourceMap": true,
+    "outDir": "./dist",
+    "incremental": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "paths": {
+      "@app/custom-validators": ["src/validators"],
+      "@app/kafka": [
+        "../../libs/kafka/src"
+      ],
+      "@app/kafka/*": [
+        "../../libs/kafka/src/*"
+      ],
+      "@app/logging": [
+        "../../libs/logging/src"
+      ],
+      "@app/logging/*": [
+        "../../libs/logging/src/*"
+      ]
     }
-  ]
+  },
+  "include": ["src"]
 }
