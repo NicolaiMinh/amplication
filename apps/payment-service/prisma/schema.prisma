@@ -1,5 +1,5 @@
-datasource postgres {
-  provider = "postgresql"
+datasource mysql {
+  provider = "mysql"
   url      = env("DB_URL")
 }
 
@@ -16,13 +16,4 @@ model User {
   roles     Json
   updatedAt DateTime @updatedAt
   username  String   @unique
-}
-
-model Payment {
-  cardNo             String
-  cardPlaceholder    String?
-  createdAt          DateTime @default(now())
-  id                 String   @id @default(cuid())
-  transactionDeposit Float?
-  updatedAt          DateTime @updatedAt
 }
