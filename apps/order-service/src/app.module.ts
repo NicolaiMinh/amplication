@@ -32,6 +32,7 @@ import { AuthModule } from "./auth/auth.module";
     PrismaModule,
     SecretsManagerModule,
     MorganModule,
+    KafkaModule,
     ConfigModule.forRoot({ isGlobal: true }),
     ServeStaticModule.forRootAsync({
       useClass: ServeStaticOptionsService,

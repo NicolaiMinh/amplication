@@ -31,13 +31,18 @@ import { Address } from "./Address";
 import { CustomerFindManyArgs } from "../../customer/base/CustomerFindManyArgs";
 import { Customer } from "../../customer/base/Customer";
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
+import {Logger} from "@nestjs/common";
+import {KafkaService} from "../../kafka/kafka.service";
+import {MessageBrokerTopics} from "../../kafka/topics";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class AddressControllerBase {
+  protected readonly logger = new Logger(AddressControllerBase.name);
   constructor(
     protected readonly service: AddressService,
-    protected readonly rolesBuilder: nestAccessControl.RolesBuilder
+    protected readonly rolesBuilder: nestAccessControl.RolesBuilder,
+    protected readonly kafkaService: KafkaService
   ) {}
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()
@@ -50,8 +55,8 @@ export class AddressControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async create(@common.Body() data: AddressCreateInput): Promise<Address> {
-    return await this.service.create({
+  async create(@common.Body() data: AddressCreateInput): Promise<void> {
+    await this.service.create({
       data: data,
       select: {
         address_1: true,
@@ -64,6 +69,27 @@ export class AddressControllerBase {
         zip: true,
       },
     });
+    console.log("AddressCreateInput Writing build generation message to queue");
+    this.logger.log(" AddressCreateInput Writing build generation message to queue");
+
+    // await this.kafkaService.emitMessage(
+    //     MessageBrokerTopics.TopicSampleV1,
+    //     JSON.stringify({ ...data})
+    // );
+    //
+    // await this.kafkaService.emitMessage(
+    //     MessageBrokerTopics.TopicSampleV1,
+    //     {
+    //       key: null,
+    //       value: { address_1: data.address_1 },
+    //     }
+    // );
+    await this.kafkaService.emitMessage(
+        MessageBrokerTopics.TopicSampleV1,
+        JSON.stringify({ ...data})
+    );
+    this.logger.log("AddressCreateInput Build generation message sent");
+    return;
   }
 
   @Public()

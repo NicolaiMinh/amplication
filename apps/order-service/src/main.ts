@@ -12,6 +12,8 @@ import {
   // @ts-ignore
   // eslint-disable-next-line
 } from "./swagger";
+import {generateKafkaClientOptions} from "../../product-service/src/kafka/generateKafkaClientOptions";
+import {MicroserviceOptions} from "@nestjs/microservices";
 
 const { PORT = 3000 } = process.env;
 
@@ -24,7 +26,9 @@ async function main() {
       transform: true,
     })
   );
+  app.connectMicroservice<MicroserviceOptions>(generateKafkaClientOptions());
 
+  await app.startAllMicroservices();
   const document = SwaggerModule.createDocument(app, swaggerDocumentOptions);
 
   /** check if there is Public decorator for each path (action) and its method (findMany / findOne) on each controller */

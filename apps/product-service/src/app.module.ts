@@ -13,6 +13,7 @@ import { GraphQLModule } from "@nestjs/graphql";
 
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
+import {KafkaModule} from "./kafka/kafka.module";
 
 @Module({
   controllers: [],
@@ -25,6 +26,7 @@ import { AuthModule } from "./auth/auth.module";
     PrismaModule,
     SecretsManagerModule,
     MorganModule,
+    KafkaModule,
     ConfigModule.forRoot({ isGlobal: true }),
     ServeStaticModule.forRootAsync({
       useClass: ServeStaticOptionsService,
