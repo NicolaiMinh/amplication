@@ -1,5 +1,5 @@
 import { DynamicModule, Global, Module } from "@nestjs/common";
-import { AmplicationLogger } from "./logger.service";
+import { ApplicationLogger } from "./logger.service";
 import {
   ApplicationLoggerModulesOptions,
   APPLICATION_LOGGER_MODULE_OPTIONS,
@@ -16,9 +16,9 @@ export class ApplicationLoggerModule {
           provide: APPLICATION_LOGGER_MODULE_OPTIONS,
           useValue: options,
         },
-        AmplicationLogger,
+        ApplicationLogger,
       ],
-      exports: [AmplicationLogger],
+      exports: [ApplicationLogger],
     };
   }
 }
