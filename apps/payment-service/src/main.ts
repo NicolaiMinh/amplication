@@ -12,8 +12,10 @@ import {
   // @ts-ignore
   // eslint-disable-next-line
 } from "./swagger";
+import {MicroserviceOptions} from "@nestjs/microservices";
+import {generateKafkaClientOptions} from "./kafka/generateKafkaClientOptions";
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3002 } = process.env;
 
 async function main() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -24,6 +26,10 @@ async function main() {
       transform: true,
     })
   );
+
+  app.connectMicroservice<MicroserviceOptions>(generateKafkaClientOptions());
+
+  await app.startAllMicroservices();
 
   const document = SwaggerModule.createDocument(app, swaggerDocumentOptions);
 

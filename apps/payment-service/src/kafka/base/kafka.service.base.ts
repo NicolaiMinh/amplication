@@ -1,8 +1,8 @@
-import { Inject } from "@nestjs/common";
+import {Inject, OnModuleInit} from "@nestjs/common";
 import { ClientKafka } from "@nestjs/microservices";
 
-export class KafkaServiceBase {
-  constructor(@Inject("KAFKA_CLIENT") private kafkaClient: ClientKafka) {}
+export class KafkaServiceBase implements OnModuleInit{
+  constructor(@Inject("KAFKA_CLIENT") protected kafkaClient: ClientKafka) {}
 
   async onModuleInit() {
     await this.kafkaClient.connect();
