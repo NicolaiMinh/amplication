@@ -31,26 +31,23 @@ import { CustomerFindManyArgs } from "../../customer/base/CustomerFindManyArgs";
 import { Customer } from "../../customer/base/Customer";
 import { CustomerWhereUniqueInput } from "../../customer/base/CustomerWhereUniqueInput";
 // import {KafkaService} from "../../kafka/kafka.service";
-import {MessageBrokerTopics} from "../../kafka/topics";
 import {Inject, Logger} from "@nestjs/common";
 import {Env} from "../../env";
 import {ConfigService} from "@nestjs/config";
-import {KAFKA_CLIENT, KafkaProducerService} from "@app/kafka";
-import {ApplicationLogger} from "@app/logging";
+import {KafkaProducerService} from "../../kafka";
+import {ApplicationLogger} from "../../logging";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class AddressControllerBase {
 
-  // protected readonly logger = new Logger(AddressControllerBase.name);
+  protected readonly logger = new Logger(AddressControllerBase.name);
 
   constructor(
     protected readonly service: AddressService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder,
     protected readonly configService: ConfigService<Env, true>,
-    protected readonly producerService: KafkaProducerService,
-    @Inject(ApplicationLogger)
-    protected readonly logger: ApplicationLogger
+    protected readonly producerService: KafkaProducerService
   ) {}
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()
@@ -78,7 +75,7 @@ export class AddressControllerBase {
       },
     });
     console.log("AddressCreateInput Writing build generation message to queue");
-    this.logger.info(" AddressCreateInput Writing build generation message to queue");
+    this.logger.log(" AddressCreateInput Writing build generation message to queue");
 
     // await this.kafkaService.emitMessage(
     //     MessageBrokerTopics.TopicSampleV1,
@@ -99,7 +96,7 @@ export class AddressControllerBase {
           value: { address_1: data.address_1 },
         }
     );
-    this.logger.info("AddressCreateInput Build generation message sent");
+    this.logger.log("AddressCreateInput Build generation message sent");
     return;
   }
 

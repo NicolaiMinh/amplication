@@ -6,8 +6,8 @@ import {
   KAFKA_CLIENT,
 } from "./createNestjsKafkaConfig";
 import { KafkaProducerService } from "./producer/KafkaProducer.service";
-import {KAFKA_SERIALIZER} from "@app/kafka/core/types/serializer.types";
-import {KafkaMessageJsonSerializer} from "@app/kafka/core/serializer";
+import {KAFKA_SERIALIZER} from "./core/types/serializer.types";
+import {KafkaMessageJsonSerializer} from "./core/serializer";
 
 @Module({
   imports: [

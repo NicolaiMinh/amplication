@@ -4,7 +4,6 @@ import * as nestAccessControl from "nest-access-control";
 import { OrderService } from "./order.service";
 import { OrderControllerBase } from "./base/order.controller.base";
 import {MessagePattern, Payload} from "@nestjs/microservices";
-import {MessageBrokerTopics} from "../kafka/topics";
 import {Logger} from "@nestjs/common";
 
 @swagger.ApiTags("orders")

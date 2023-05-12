@@ -38,16 +38,10 @@
     "paths": {
       "@app/custom-validators": ["src/validators"],
       "@app/kafka": [
-        "../../libs/kafka/src"
-      ],
-      "@app/kafka/*": [
-        "../../libs/kafka/src/*"
+        "src/kafka"
       ],
       "@app/logging": [
-        "../../libs/logging/src"
-      ],
-      "@app/logging/*": [
-        "../../libs/logging/src/*"
+        "src/logging"
       ]
     }
   },

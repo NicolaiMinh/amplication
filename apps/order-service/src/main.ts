@@ -13,13 +13,13 @@ import {
   // eslint-disable-next-line
 } from "./swagger";
 import {MicroserviceOptions} from "@nestjs/microservices";
-import {ApplicationLogger} from "@app/logging";
-import {createNestjsKafkaConfig} from "@app/kafka";
+import {ApplicationLogger} from "./logging";
+import {createNestjsKafkaConfig} from "./kafka";
 
 const { PORT = 3000 } = process.env;
 
 async function main() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule, { cors: true, bufferLogs: true });
 
   app.setGlobalPrefix("api");
   app.useGlobalPipes(

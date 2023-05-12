@@ -1,6 +1,6 @@
 import { KafkaMessageJsonSerializer } from "./KafkaMessageJsonSerializer";
 import {KafkaMessage} from "../../types/kafka.types";
-import {createKafkaMessage} from "../../../../../../test/kafkaMessageUtil";
+import {createKafkaMessage} from "../../kafkaMessageUtil";
 
 jest.mock("console");
 

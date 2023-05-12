@@ -2,7 +2,7 @@ import { Inject, Injectable, LoggerService } from "@nestjs/common";
 import {
   APPLICATION_LOGGER_MODULE_OPTIONS, ApplicationLoggerModulesOptions
 } from "./types";
-import {ILogger, Logger, LoggerOptions} from "@app/logging/core";
+import {ILogger, Logger, LoggerOptions} from "./core";
 
 @Injectable()
 export class ApplicationLogger implements LoggerService, ILogger {

@@ -28,8 +28,7 @@ import { OrderFindManyArgs } from "./OrderFindManyArgs";
 import { OrderUpdateInput } from "./OrderUpdateInput";
 import { Order } from "./Order";
 import {Logger} from "@nestjs/common";
-// import {KafkaService} from "../../kafka/kafka.service";
-import {MessageBrokerTopics} from "../../kafka/topics";
+
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
