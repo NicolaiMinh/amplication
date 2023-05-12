@@ -29,7 +29,8 @@ import { ProductUpdateInput } from "./ProductUpdateInput";
 import { Product } from "./Product";
 import {Inject} from "@nestjs/common";
 import {ApplicationLogger} from "@app/logging";
-import {KafkaProducerService} from "@app/kafka";
+import {KAFKA_CLIENT, KafkaProducerService} from "@app/kafka";
+import {ClientKafka} from "@nestjs/microservices";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)

@@ -3,21 +3,21 @@ import * as swagger from "@nestjs/swagger";
 import * as nestAccessControl from "nest-access-control";
 import { ProductService } from "./product.service";
 import { ProductControllerBase } from "./base/product.controller.base";
-import {Ctx, EventPattern, KafkaContext, MessagePattern, Payload} from "@nestjs/microservices";
+import {ClientKafka, Ctx, EventPattern, KafkaContext, MessagePattern, Payload} from "@nestjs/microservices";
 import {validateOrReject} from "class-validator";
 import {plainToInstance} from "class-transformer";
-import {Inject} from "@nestjs/common";
+import {Inject, OnModuleInit} from "@nestjs/common";
 import {Env} from "../env";
 import {AddressGenerationSuccess} from "./dto/AddressGenerationSuccess";
 import {ApplicationLogger} from "@app/logging";
 import {EnvironmentVariables} from "@app/kafka/core/environmentVariables";
 import { Logger } from "@nestjs/common";
-import {KafkaProducerService} from "@app/kafka";
+import {KAFKA_CLIENT, KafkaProducerService} from "@app/kafka";
 
 
 @swagger.ApiTags("products")
 @common.Controller("products")
-export class ProductController extends ProductControllerBase {
+export class ProductController extends ProductControllerBase{
   private readonly logger = new Logger(ProductController.name);
 
   constructor(
@@ -55,17 +55,17 @@ export class ProductController extends ProductControllerBase {
 
   }
 
-  @MessagePattern(EnvironmentVariables.instance.get(Env.TopicSampleV2, true))
+  @EventPattern(EnvironmentVariables.instance.get(Env.TopicSampleV2, true))
   async onDsgLog(@Payload() message: AddressGenerationSuccess): Promise<void> {
     const messageEntry = plainToInstance(AddressGenerationSuccess, message);
     console.log("onDsgLog message: ", messageEntry);
     this.logger.log(`Got a new onDsgLog.`, {messageEntry });
   }
-
-  @EventPattern(EnvironmentVariables.instance.get(Env.TopicSampleV2, true))
-  async onDsgLog1(@Payload() message: AddressGenerationSuccess): Promise<void> {
-    const messageEntry = plainToInstance(AddressGenerationSuccess, message);
-    console.log("onDsgLog1 message: ", messageEntry);
-    this.logger.log(`Got a new onDsgLog1.`, {messageEntry });
-  }
+  //
+  // @EventPattern(EnvironmentVariables.instance.get(Env.TopicSampleV2, true))
+  // async onDsgLog1(@Payload() message: AddressGenerationSuccess): Promise<void> {
+  //   const messageEntry = plainToInstance(AddressGenerationSuccess, message);
+  //   console.log("onDsgLog1 message: ", messageEntry);
+  //   this.logger.log(`Got a new onDsgLog1.`, {messageEntry });
+  // }
 }

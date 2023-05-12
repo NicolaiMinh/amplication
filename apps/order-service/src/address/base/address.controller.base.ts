@@ -92,7 +92,7 @@ export class AddressControllerBase {
     //       value: { address_1: data.address_1 },
     //     }
     // );
-    await this.producerService.emitMessage(
+    await this.producerService.emitMessageSerializer(
         this.configService.get(Env.TopicSampleV2),
         {
           key: null,
